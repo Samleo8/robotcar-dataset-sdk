@@ -38,7 +38,7 @@ interpolate_crossover = True
 title = "Radar Visualisation Example"
 
 radar_timestamps = np.loadtxt(timestamps_path, delimiter=' ', usecols=[0], dtype=np.int64)
-for cnt, radar_timestamp in enumerate(radar_timestamps):
+for i, radar_timestamp in enumerate(radar_timestamps):
     filename = os.path.join(args.dir, str(radar_timestamp) + '.png')
 
     if not os.path.isfile(filename):
@@ -55,6 +55,8 @@ for cnt, radar_timestamp in enumerate(radar_timestamps):
     resize_factor = float(cart_img.shape[0]) / float(fft_data_vis.shape[0])
     fft_data_vis = cv2.resize(fft_data_vis, (0, 0), None, resize_factor, resize_factor)
     vis = cv2.hconcat((fft_data_vis, fft_data_vis[:, :10] * 0 + 1, cart_img))
+
+    vis = cv2.putText(vis, f"{i}: {radar_timestamp}", org=(10, 10), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.5, color=(255, 0, 0), thickness=2, lineType=cv2.LINE_AA)
 
     cv2.imshow(title, vis * 2.)  # The data is doubled to improve visualisation
     _k = cv2.waitKey(1)
