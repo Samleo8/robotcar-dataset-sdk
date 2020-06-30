@@ -56,10 +56,10 @@ for i, radar_timestamp in enumerate(radar_timestamps):
     fft_data_vis = cv2.resize(fft_data_vis, (0, 0), None, resize_factor, resize_factor)
     vis = cv2.hconcat((fft_data_vis, fft_data_vis[:, :10] * 0 + 1, cart_img))
 
-    vis = cv2.putText(vis, f"{i}: {radar_timestamp}", org=(10, 10), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.5, color=(255, 0, 0), thickness=2, lineType=cv2.LINE_AA)
+    vis = cv2.putText(vis, f"{i}: {radar_timestamp}", org=(10, 20), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.5, color=(255, 255, 255), thickness=1, lineType=cv2.LINE_AA)
 
     cv2.imshow(title, vis * 2.)  # The data is doubled to improve visualisation
-    _k = cv2.waitKey(1)
+    _k = cv2.waitKey(0)
 
     if _k & 0xFF == ord('q'):
         break
